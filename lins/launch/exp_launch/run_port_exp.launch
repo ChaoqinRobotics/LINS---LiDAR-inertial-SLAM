@@ -1,0 +1,34 @@
+<launch>
+    
+    <!--- Sim Time -->
+    <param name="/use_sim_time" value="true" />
+    
+    <!--- Run Rviz-->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lins)/config/rviz_config/lins_rviz_config.rviz" />
+ 
+    <!--- TF -->
+    <node pkg="tf" type="static_transform_publisher" name="camera_init_to_map"  args="0 0 0 1.570795   0        1.570795 /map    /camera_init 10" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_camera" args="0 0 0 -1.570795 -1.570795 0        /camera /base_link   10" />
+    
+    <!--- Config Path -->
+    <arg name="config_path" default = "$(find lins)/config/exp_config/exp_port.yaml" />
+    
+    <!--- LINS -->   
+    <node pkg="lins" type="image_projection_node"    name="image_projection_node"    output="screen">
+        <param name="config_file" type="string" value="$(arg config_path)" />
+    </node>
+
+    <node pkg="lins" type="transform_fusion_node"    name="transform_fusion_node"    output="screen">
+        <param name="config_file" type="string" value="$(arg config_path)" />
+    </node>
+    
+    <node pkg="lins" type="lins_fusion_node"    name="lins_fusion_node"    output="screen">
+        <param name="config_file" type="string" value="$(arg config_path)" />
+    </node>
+    
+    <node pkg="lins" type="lidar_mapping_node"     name="lidar_mapping_node"     output="screen">
+        <param name="config_file" type="string" value="$(arg config_path)" />
+    </node>
+
+</launch>
+

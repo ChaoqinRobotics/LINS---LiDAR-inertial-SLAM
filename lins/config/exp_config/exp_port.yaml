@@ -1,0 +1,140 @@
+%YAML:1.0
+
+# 0: no imu calibration and use default values. 1: calibrate imu
+calibrate_imu: 1
+show_configuration: 0
+use_ref: 0
+high_output_rate_mode: 0
+verbose: 1
+icp_freq: 1
+max_lidar_nums: 200000
+lidar_scale: 1
+num_iter: 30
+lidar_std: 0.01
+
+imu_lidar_extrinsic_angle: 0.0
+imu_misalign_angle: 3.0
+init_heading: 0.0
+
+ref_lat: 22.624501666666670729
+ref_lon: 113.67983666666665954
+ref_alt: 0.39487204570627798539
+
+acc_n: 70000
+gyr_n: 0.1
+acc_w: 500
+gyr_w: 0.05
+
+init_pos_std: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [0.0, 0.0, 0.0]
+   
+init_vel_std: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [0.0, 0.0, 0.0]
+
+init_att_std: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [0.0, 0.0, 0.0]
+   
+init_acc_std: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [0.01, 0.01, 0.02]
+      
+init_gyr_std: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [0.002, 0.002, 0.002]
+       
+
+##Translation from imu frame to gps frame
+init_lever_arm: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [0.0, 0.0, 0.0]
+   
+#exp1
+init_ba: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [-0.015774,0.143237,-0.0263845]
+   
+init_bw: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [-0.00275058,-0.000165954,0.00262913]
+   
+#exp1
+#init_ba: !!opencv-matrix
+   #rows: 3
+   #cols: 1
+   #dt: d
+   #data: [0.0,  0.0,  0.0]
+   
+#init_bw: !!opencv-matrix
+   #rows: 3
+   #cols: 1
+   #dt: d
+   #data: [-0.00275058,-0.000165954,0.00262913]
+   
+init_tbl: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [0.0,0.0,0.0]
+   
+init_rbl: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data:  [1, 0, 0, 
+           0, 1, 0, 
+           0, 0, 1]
+   
+line_num: 16 
+scan_num: 1800
+scan_period: 0.1
+edge_threshold: 0.5
+surf_threshold: 0.5
+nearest_feature_search_sq_dist: 25
+   
+average_nums: 100
+low_pass_filter_ratio: 0.5
+stationary_threshould: 0.5
+
+#common parameters
+imu_topic: "/imu/data"
+gps_pos_topic: "/fix/gstar"
+gps_vel_topic: "/novatel718d/vel"
+gps_heading_topic: "/novatel718d/heading"
+lidar_topic: "/velodyne_points"
+mag_heading_topic: "/mag/heading"
+wheel_odom_topic: "/wheel/odom"
+laser_odom_topic: "/laser/odom"
+
+lidar_odometry_topic: "/laser_odom_to_init"
+lidar_mapping_topic: "/integrated_to_init"
+fusion_odometry_topic: "/fusion_odom_to_init"
+gps_odometry_topic: "/gps_odom_to_init"
+imu_odometry_topic: "/imu_odom_to_init"
+
+# type 0: vehicle; type 1: drone
+robot_type: 0
+# type MODE_LIDAR = 0: MODE_IMU_LIDAR = 1: MODE_IMU_GPS = 2; MODE_IMU_LIDAR_GPS = 3
+fusion_type: 1
+# type 0: static; type 1: dynamic
+initialization_type: 0
+
+
