@@ -100,19 +100,16 @@ const int historyKeyframeSearchNum = 25;
 const float historyKeyframeFitnessScore = 0.3;
 const float globalMapVisualizationSearchRadius = 500.0;
 
-/*!@ENABLE_CALIBRATION */
+// !@ENABLE_CALIBRATION
 extern int CALIBARTE_IMU;
 extern int SHOW_CONFIGURATION;
+extern int AVERAGE_NUMS;
 
-/*!@INITIAL_PARAMETERS */
+// !@INITIAL_PARAMETERS
 extern double IMU_LIDAR_EXTRINSIC_ANGLE;
 extern double IMU_MISALIGN_ANGLE;
-extern double INIT_HEADING;
-extern double REF_LAT;
-extern double REF_LON;
-extern double REF_ALT;
 
-/*!@LIDAR_PARAMETERS */
+// !@LIDAR_PARAMETERS
 extern int LINE_NUM;
 extern int SCAN_NUM;
 extern double SCAN_PERIOD;
@@ -120,7 +117,23 @@ extern double EDGE_THRESHOLD;
 extern double SURF_THRESHOLD;
 extern double NEAREST_FEATURE_SEARCH_SQ_DIST;
 
-/*!@KALMAN_FILTER */
+// !@TESTING
+extern int VERBOSE;
+extern int ICP_FREQ;
+extern int MAX_LIDAR_NUMS;
+extern int NUM_ITER;
+extern double LIDAR_SCALE;
+extern double LIDAR_STD;
+
+// !@SUB_TOPIC_NAME
+extern std::string IMU_TOPIC;
+extern std::string LIDAR_TOPIC;
+
+// !@PUB_TOPIC_NAME
+extern std::string LIDAR_ODOMETRY_TOPIC;
+extern std::string LIDAR_MAPPING_TOPIC;
+
+// !@KALMAN_FILTER
 extern double ACC_N;
 extern double ACC_W;
 extern double GYR_N;
@@ -131,49 +144,13 @@ extern V3D INIT_ATT_STD;
 extern V3D INIT_ACC_STD;
 extern V3D INIT_GYR_STD;
 
-/*!@EXTRINSIC_PARAMETERS*/
-extern V3D LEVER_ARM;
+// !@INITIAL IMU BIASES
 extern V3D INIT_BA;
 extern V3D INIT_BW;
+
+// !@EXTRINSIC_PARAMETERS
 extern V3D INIT_TBL;
 extern Q4D INIT_RBL;
-
-/*!@FILTER_PARAMETERS*/
-extern int AVERAGE_NUMS;
-extern double LOW_PASS_FILTER_RATIO;
-extern double STATIONARY_THRESHOULD;
-
-/*!@SUB_TOPIC_NAME*/
-extern std::string IMU_TOPIC;
-extern std::string GPS_POS_TOPIC;
-extern std::string GPS_VEL_TOPIC;
-extern std::string GPS_HEADING_TOPIC;
-extern std::string LIDAR_TOPIC;
-extern std::string MAG_HEADING_TOPIC;
-extern std::string WHEEL_ODOM_TOPIC;
-extern std::string LASER_ODOM_TOPIC;
-
-/*!@PUB_TOPIC_NAME*/
-extern std::string LIDAR_ODOMETRY_TOPIC;
-extern std::string LIDAR_MAPPING_TOPIC;
-extern std::string FUSION_ODOMETRY_TOPIC;
-extern std::string GPS_ODOMETRY_TOPIC;
-extern std::string IMU_ODOMETRY_TOPIC;
-
-/*!@UTILITY_SETTINGS*/
-extern int ROBOT_TYPE;
-extern int FUSION_TYPE;
-extern int INITIALIZATION_TYPE;
-extern int USE_REF;
-extern int HIGH_OUTPUT_RATE_MODE;
-
-/*!@TESTING*/
-extern int VERBOSE;
-extern int ICP_FREQ;
-extern int MAX_LIDAR_NUMS;
-extern int NUM_ITER;
-extern double LIDAR_SCALE;
-extern double LIDAR_STD;
 
 void readParameters(ros::NodeHandle& n);
 

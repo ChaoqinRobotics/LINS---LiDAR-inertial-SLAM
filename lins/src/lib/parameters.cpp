@@ -19,19 +19,16 @@
 
 namespace parameter {
 
-/*!@ENABLE_CALIBRATION */
+// !@ENABLE_CALIBRATION
 int CALIBARTE_IMU;
 int SHOW_CONFIGURATION;
+int AVERAGE_NUMS;
 
-/*!@INITIAL_PARAMETERS */
+// !@INITIAL_PARAMETERS
 double IMU_LIDAR_EXTRINSIC_ANGLE;
 double IMU_MISALIGN_ANGLE;
-double INIT_HEADING;
-double REF_LAT;
-double REF_LON;
-double REF_ALT;
 
-/*!@LIDAR_PARAMETERS */
+// !@LIDAR_PARAMETERS
 int LINE_NUM;
 int SCAN_NUM;
 double SCAN_PERIOD;
@@ -39,7 +36,23 @@ double EDGE_THRESHOLD;
 double SURF_THRESHOLD;
 double NEAREST_FEATURE_SEARCH_SQ_DIST;
 
-/*!@KALMAN_FILTER */
+// !@TESTING
+int VERBOSE;
+int ICP_FREQ;
+int MAX_LIDAR_NUMS;
+int NUM_ITER;
+double LIDAR_SCALE;
+double LIDAR_STD;
+
+// !@SUB_TOPIC_NAME
+std::string IMU_TOPIC;
+std::string LIDAR_TOPIC;
+
+// !@PUB_TOPIC_NAME
+std::string LIDAR_ODOMETRY_TOPIC;
+std::string LIDAR_MAPPING_TOPIC;
+
+// !@KALMAN_FILTER
 double ACC_N;
 double ACC_W;
 double GYR_N;
@@ -50,49 +63,13 @@ V3D INIT_ATT_STD;
 V3D INIT_ACC_STD;
 V3D INIT_GYR_STD;
 
-/*!@EXTRINSIC_PARAMETERS*/
-V3D LEVER_ARM;
+// !@INITIAL IMU BIASES
 V3D INIT_BA;
 V3D INIT_BW;
+
+// !@EXTRINSIC_PARAMETERS
 V3D INIT_TBL;
 Q4D INIT_RBL;
-
-/*!@FILTER_PARAMETERS*/
-int AVERAGE_NUMS;
-double LOW_PASS_FILTER_RATIO;
-double STATIONARY_THRESHOULD;
-
-/*!@SUB_TOPIC_NAME*/
-std::string IMU_TOPIC;
-std::string GPS_POS_TOPIC;
-std::string GPS_VEL_TOPIC;
-std::string GPS_HEADING_TOPIC;
-std::string LIDAR_TOPIC;
-std::string MAG_HEADING_TOPIC;
-std::string WHEEL_ODOM_TOPIC;
-std::string LASER_ODOM_TOPIC;
-
-/*!@PUB_TOPIC_NAME*/
-std::string LIDAR_ODOMETRY_TOPIC;
-std::string LIDAR_MAPPING_TOPIC;
-std::string FUSION_ODOMETRY_TOPIC;
-std::string GPS_ODOMETRY_TOPIC;
-std::string IMU_ODOMETRY_TOPIC;
-
-/*!@UTILITY_SETTINGS*/
-int ROBOT_TYPE;
-int FUSION_TYPE;
-int INITIALIZATION_TYPE;
-int USE_REF;
-int HIGH_OUTPUT_RATE_MODE;
-
-/*!@TESTING*/
-int VERBOSE;
-int ICP_FREQ;
-int MAX_LIDAR_NUMS;
-int NUM_ITER;
-double LIDAR_SCALE;
-double LIDAR_STD;
 
 template <typename T>
 T readParam(ros::NodeHandle& n, std::string name) {
@@ -116,14 +93,26 @@ void readParameters(ros::NodeHandle& n) {
 
   CALIBARTE_IMU = fsSettings["calibrate_imu"];
   SHOW_CONFIGURATION = fsSettings["show_configuration"];
-  ;
-
+  AVERAGE_NUMS = fsSettings["average_nums"];
   IMU_LIDAR_EXTRINSIC_ANGLE = fsSettings["imu_lidar_extrinsic_angle"];
   IMU_MISALIGN_ANGLE = fsSettings["imu_misalign_angle"];
-  INIT_HEADING = fsSettings["init_heading"];
-  REF_LAT = fsSettings["ref_lat"];
-  REF_LON = fsSettings["ref_lon"];
-  REF_ALT = fsSettings["ref_alt"];
+  LINE_NUM = fsSettings["line_num"];
+  SCAN_NUM = fsSettings["scan_num"];
+  SCAN_PERIOD = fsSettings["scan_period"];
+  EDGE_THRESHOLD = fsSettings["edge_threshold"];
+  SURF_THRESHOLD = fsSettings["surf_threshold"];
+  NEAREST_FEATURE_SEARCH_SQ_DIST = fsSettings["nearest_feature_search_sq_dist"];
+  VERBOSE = fsSettings["verbose"];
+  ICP_FREQ = fsSettings["icp_freq"];
+  MAX_LIDAR_NUMS = fsSettings["max_lidar_nums"];
+  NUM_ITER = fsSettings["num_iter"];
+  LIDAR_SCALE = fsSettings["lidar_scale"];
+  LIDAR_STD = fsSettings["lidar_std"];
+
+  fsSettings["imu_topic"] >> IMU_TOPIC;
+  fsSettings["lidar_topic"] >> LIDAR_TOPIC;
+  fsSettings["lidar_odometry_topic"] >> LIDAR_ODOMETRY_TOPIC;
+  fsSettings["lidar_mapping_topic"] >> LIDAR_MAPPING_TOPIC;
 
   ACC_N = fsSettings["acc_n"];
   ACC_W = fsSettings["acc_w"];
@@ -136,52 +125,10 @@ void readParameters(ros::NodeHandle& n) {
   readV3D(&fsSettings, "init_acc_std", INIT_ACC_STD);
   readV3D(&fsSettings, "init_gyr_std", INIT_GYR_STD);
 
-  readV3D(&fsSettings, "init_lever_arm", LEVER_ARM);
   readV3D(&fsSettings, "init_ba", INIT_BA);
   readV3D(&fsSettings, "init_bw", INIT_BW);
   readV3D(&fsSettings, "init_tbl", INIT_TBL);
   readQ4D(&fsSettings, "init_rbl", INIT_RBL);
-
-  LINE_NUM = fsSettings["line_num"];
-  SCAN_NUM = fsSettings["scan_num"];
-  SCAN_PERIOD = fsSettings["scan_period"];
-  EDGE_THRESHOLD = fsSettings["edge_threshold"];
-  SURF_THRESHOLD = fsSettings["surf_threshold"];
-  NEAREST_FEATURE_SEARCH_SQ_DIST = fsSettings["nearest_feature_search_sq_dist"];
-
-  AVERAGE_NUMS = fsSettings["average_nums"];
-  LOW_PASS_FILTER_RATIO = fsSettings["low_pass_filter_ratio"];
-  STATIONARY_THRESHOULD = fsSettings["stationary_threshould"];
-
-  fsSettings["imu_topic"] >> IMU_TOPIC;
-  fsSettings["gps_pos_topic"] >> GPS_POS_TOPIC;
-  fsSettings["gps_vel_topic"] >> GPS_VEL_TOPIC;
-  fsSettings["gps_heading_topic"] >> GPS_HEADING_TOPIC;
-  fsSettings["lidar_topic"] >> LIDAR_TOPIC;
-  fsSettings["mag_heading_topic"] >> MAG_HEADING_TOPIC;
-  fsSettings["wheel_odom_topic"] >> WHEEL_ODOM_TOPIC;
-  fsSettings["laser_odom_topic"] >> LASER_ODOM_TOPIC;
-
-  fsSettings["lidar_odometry_topic"] >> LIDAR_ODOMETRY_TOPIC;
-  fsSettings["lidar_mapping_topic"] >> LIDAR_MAPPING_TOPIC;
-  fsSettings["fusion_odometry_topic"] >> FUSION_ODOMETRY_TOPIC;
-  fsSettings["gps_odometry_topic"] >> GPS_ODOMETRY_TOPIC;
-  fsSettings["imu_odometry_topic"] >> IMU_ODOMETRY_TOPIC;
-
-  ROBOT_TYPE = fsSettings["robot_type"];
-  FUSION_TYPE = fsSettings["fusion_type"];
-  INITIALIZATION_TYPE = fsSettings["initialization_type"];
-
-  USE_REF = fsSettings["use_ref"];
-  HIGH_OUTPUT_RATE_MODE = fsSettings["high_output_rate_mode"];
-  VERBOSE = fsSettings["verbose"];
-  ICP_FREQ = fsSettings["icp_freq"];
-  MAX_LIDAR_NUMS = fsSettings["max_lidar_nums"];
-
-  LIDAR_SCALE = fsSettings["lidar_scale"];
-  NUM_ITER = fsSettings["num_iter"];
-  LIDAR_SCALE = fsSettings["lidar_scale"];
-  LIDAR_STD = fsSettings["lidar_std"];
 }
 
 void readV3D(cv::FileStorage* file, const std::__cxx11::string& name,
