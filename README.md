@@ -8,7 +8,7 @@ This repository contains code for a tightly-coupled lidar-inertial odometry and 
 
 - [ROS](http://wiki.ros.org/ROS/Installation) (tested with kinetic)
 - [gtsam](https://github.com/borglab/gtsam/releases) (Georgia Tech Smoothing and Mapping library)
-
+- [OpenCV](https://opencv.org/) (tested with OpenCV 3.4)
 
 
 ## Compile
@@ -52,9 +52,11 @@ rosbag play *.bag --clock --topic /velodyne_points /imu/data
 
 ## Dataset
 
-We provide a short piece of dataset for testing. The dataset can be founded here -> 
+We provide a short piece of dataset for testing. The dataset can be founded [here](https://drive.google.com/file/d/19UUcO77L-g-RsZd_SLyr6O39S2JXJtiK/view?usp=drive_web).
 
-
+1. `source devel/setup.bash`
+2. `roslaunch lins run_port_exp.launch`.
+3. `rosbag play lidar_imu_dataset.bag --clock`.
 
 ## Cite *LINS*
 
