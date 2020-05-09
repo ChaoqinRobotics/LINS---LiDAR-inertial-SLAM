@@ -1,6 +1,6 @@
 # LINS---LiDAR-inertial-SLAM
 
-This repository contains code for a tightly-coupled lidar-inertial odometry and mapping system for ROS compatible UGVs. The reason of fusing IMU and Lidar in a tightly-couple scheme is to handle feature-less environments where previous methods may fail. This work is built upon LIO-mapping, LeGO-LOAM and LOAM. The main contribution of this work is the lightweight lidar-inertial lidar odometry which produces robust and accurate odometry in real time using a 400-Hz IMU and a Velodyne VLP-16 Lidar. Extensive experiments show that with a robust lidar-inertial odometry, the localization and mapping performances are greatly improved in challenging environments. A demonstration of the system can be found here -> 
+This repository contains code for a tightly-coupled lidar-inertial odometry and mapping system for ROS compatible UGVs. The reason of fusing IMU and Lidar in a tightly-couple scheme is to handle feature-less environments where previous methods may fail. This work is built upon LIO-mapping, LeGO-LOAM and LOAM. The main contribution of this work is the lightweight lidar-inertial lidar odometry which produces robust and accurate odometry in real time using a 400-Hz IMU and a Velodyne VLP-16 Lidar. Extensive experiments show that with a robust lidar-inertial odometry, the localization and mapping performances are greatly improved in challenging environments. A demonstration of the system can be found here -> https://www.youtube.com/watch?v=Nmr1blC09qw&t=8s
 
 
 
