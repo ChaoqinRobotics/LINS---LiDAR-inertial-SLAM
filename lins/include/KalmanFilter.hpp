@@ -157,7 +157,7 @@ class StatePredictor {
       Ft.block<3, 3>(GlobalState::vel_, GlobalState::gra_) = M3D::Identity();
 
       Ft.block<3, 3>(GlobalState::att_, GlobalState::att_) =
-          skew(gyr - state_tmp.bw_);
+          - skew(gyr - state_tmp.bw_);
       Ft.block<3, 3>(GlobalState::att_, GlobalState::gyr_) = -M3D::Identity();
 
       MXD Gt =
@@ -318,12 +318,38 @@ class StatePredictor {
       state_.qbn_.setIdentity();
       initializeCovariance();
     } else if (type == 1) {
+      V3D covPos = INIT_POS_STD.array().square();
+      double covRoll = pow(deg2rad(INIT_ATT_STD(0)), 2);
+      double covPitch = pow(deg2rad(INIT_ATT_STD(1)), 2);
+      double covYaw = pow(deg2rad(INIT_ATT_STD(2)), 2);
+
+      M3D vel_cov =
+          covariance_.block<3, 3>(GlobalState::vel_, GlobalState::vel_);
+      M3D acc_cov =
+          covariance_.block<3, 3>(GlobalState::acc_, GlobalState::acc_);
+      M3D gyr_cov =
+          covariance_.block<3, 3>(GlobalState::gyr_, GlobalState::gyr_);
+      M3D gra_cov =
+          covariance_.block<3, 3>(GlobalState::gra_, GlobalState::gra_);
+
+      covariance_.setZero();
+      covariance_.block<3, 3>(GlobalState::pos_, GlobalState::pos_) =
+          covPos.asDiagonal();  // pos
+      covariance_.block<3, 3>(GlobalState::vel_, GlobalState::vel_) =
+          state_.qbn_.inverse() * vel_cov * state_.qbn_;  // vel
+      covariance_.block<3, 3>(GlobalState::att_, GlobalState::att_) =
+          V3D(covRoll, covPitch, covYaw).asDiagonal();  // att
+      covariance_.block<3, 3>(GlobalState::acc_, GlobalState::acc_) = acc_cov;
+      covariance_.block<3, 3>(GlobalState::gyr_, GlobalState::gyr_) = gyr_cov;
+      covariance_.block<3, 3>(GlobalState::gra_, GlobalState::gra_) =
+          state_.qbn_.inverse() * gra_cov * state_.qbn_;
+
       state_.rn_.setZero();
       state_.vn_ = state_.qbn_.inverse() * state_.vn_;
       state_.qbn_.setIdentity();
       state_.gn_ = state_.qbn_.inverse() * state_.gn_;
       state_.gn_ = state_.gn_ * 9.81 / state_.gn_.norm();
-      initializeCovariance(1);
+      // initializeCovariance(1);
     }
   }
 
