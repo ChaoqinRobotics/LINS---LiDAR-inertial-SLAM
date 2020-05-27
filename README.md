@@ -58,6 +58,61 @@ We provide a short piece of dataset for testing. The dataset can be founded [her
 2. `roslaunch lins run_port_exp.launch`.
 3. `rosbag play lidar_imu_dataset.bag --clock`.
 
+
+
+## Run Your Own Dataset
+
+Before you run your own dataset, please make sure that the extrinsic parameters between LiDAR and IMU are estimated off-line and set in the config file (e.g., exp_port.yaml).
+
+```cpp
+# extrinsic parameters
+init_tbl: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [0.0,0.0,0.0]
+   
+init_rbl: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data:  [1, 0, 0, 
+           0, 1, 0, 
+           0, 0, 1]
+   
+```
+
+The IMU noice parameters should be set, too.
+
+```cpp
+# noice parameters
+acc_n: 70000
+gyr_n: 0.1
+acc_w: 500
+gyr_w: 0.05
+    
+# initial IMU biases
+init_ba: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [-0.015774,0.143237,-0.0263845]
+   
+init_bw: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [-0.00275058,-0.000165954,0.00262913]
+```
+
+Below is the sensor we use in data collection. 
+
+Because the translation and rotation between LiDAR and IMU is very small, the extrinsic parameters in the config file can be set to zero. But this may not be the case in other sensor sets.
+
+Also, in this version of LINS, please make sure that the vehicle starts at the flat road, i.e., the roll and pitch angles is close to zero.
+
+
+
 ## Cite *LINS*
 
 Thank you for citing our LINS paper if you use any of this code:
@@ -65,3 +120,6 @@ Thank you for citing our LINS paper if you use any of this code:
 ```
 
 ```
+
+
+
