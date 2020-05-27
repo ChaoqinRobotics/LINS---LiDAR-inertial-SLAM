@@ -106,11 +106,12 @@ init_bw: !!opencv-matrix
 ```
 
 Below is the sensor we use in data collection.
+
 ![sensor set](https://github.com/ChaoqinRobotics/LINS---LiDAR-inertial-SLAM/blob/master/sensor/fig_lidar.png)
 
-Because the translation and rotation between LiDAR and IMU is very small, the extrinsic parameters in the config file can be set to zero. But this may not be the case in other sensor sets.
+Because this sensor set has small translation and rotation between LiDAR and IMU, the extrinsic parameters in the config file can be set to zero. **But this may not be the case in other sensor sets.**
 
-Also, in this version of LINS, please make sure that the vehicle starts at the flat road, i.e., the roll and pitch angles is close to zero.
+Also, in this version of LINS, please make sure that the vehicle starts at the flat road, i.e., the roll and pitch angles are close to zero.
 
 
 
