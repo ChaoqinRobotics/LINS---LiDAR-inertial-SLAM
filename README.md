@@ -105,7 +105,8 @@ init_bw: !!opencv-matrix
    data: [-0.00275058,-0.000165954,0.00262913]
 ```
 
-Below is the sensor we use in data collection. 
+Below is the sensor we use in data collection.
+![sensor set](https://github.com/ChaoqinRobotics/LINS---LiDAR-inertial-SLAM/blob/master/sensor/fig_lidar.png)
 
 Because the translation and rotation between LiDAR and IMU is very small, the extrinsic parameters in the config file can be set to zero. But this may not be the case in other sensor sets.
 
