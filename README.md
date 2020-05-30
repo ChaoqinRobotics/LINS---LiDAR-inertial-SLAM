@@ -62,7 +62,7 @@ We provide a short piece of dataset for testing. The dataset can be founded [her
 
 ## Run Your Own Dataset
 
-Before you run your own dataset, please make sure that the extrinsic parameters between LiDAR and IMU are estimated off-line and set in the config file (see exp_port.yaml). In this version of LINS, we assume the roll and pitch angles between LiDAR and IMU are zero, and the user can set the yaw angles between them by
+Before you run your own dataset, please make sure that the extrinsic parameters between LiDAR and IMU are estimated off-line and set in the config file (see exp_port.yaml). In this version of LINS, we assume the roll and pitch angles between LiDAR and IMU are zero, and users can set the yaw angles between them by
 
 ```cpp
 imu_misalign_angle
