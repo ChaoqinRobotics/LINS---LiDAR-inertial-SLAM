@@ -106,7 +106,13 @@ Also, in this version of LINS, please make sure that the vehicle starts at the f
 Thank you for citing our LINS paper if you use any of this code:
 
 ```
-
+@inproceedings{lins2020,
+  title={LINS: A Lidar-Inertial State Estimator for Robust and Efficient Navigation},
+  author={Qin, Chao and Ye, Haoyang and Pranata, Christian E and Han, Jun and Zhang, Shuyang and Liu, Ming},
+  booktitle={2020 International Conference on Robotics and Automation (ICRA)},
+  year={2020},
+  organization={IEEE}
+}
 ```
 
 
